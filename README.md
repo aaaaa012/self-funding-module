@@ -1,4 +1,4 @@
-# self-funding-module for Payout Agent
+# Self-Funding-Module for Payout Agent
 
 ## Overview
 The Self-funding-module enables the agents to initate funding transactions directly through their panel.
