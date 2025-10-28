@@ -1,1 +1,57 @@
 
+             ┌────────────────────────────┐
+             │ Agent logs into panel      │
+             │ and initiates funding req. │
+             └─────────────┬──────────────┘
+                           │
+                           ▼
+             ┌────────────────────────────┐
+             │ First-time funding?        │
+             └───────┬─────────┬─────────┘
+                     │Yes      │No
+                     ▼         ▼
+          ┌────────────────┐   ┌──────────────────────────┐
+          │ Bank Validation│   │ Skip validation step     │
+          │ (validate bank │   └─────────────┬────────────┘
+          │ details)       │                 │
+          └───────┬────────┘                 ▼
+                  │                      ┌─────────────────────────┐
+            Validation Passed?           │ Check Receivable ≥ NPR  │
+             ┌──────┴──────┐            │ 1,000                  │
+            Yes             No           └─────────────┬─────────┘
+             │               │                         │
+             ▼               ▼                       Yes│
+ ┌────────────────┐   ┌────────────────────────┐       ▼
+ │ Proceed to     │   │ Reject request          │ ┌──────────────────────────┐
+ │ Receivable chk │   │ → Notify agent          │ │ Check for Pending Requests│
+ └────────────────┘   └────────────────────────┘ └─────────────┬────────────┘
+                                                        │
+                                                  Pending Exists?
+                                                      ┌──────┴──────┐
+                                                    Yes             No
+                                                     │               │
+                                                     ▼               ▼
+                                         ┌────────────────┐   ┌──────────────────────────┐
+                                         │ Reject request │   │ Create Transaction Record │
+                                         │ → Notify agent │   └─────────────┬────────────┘
+                                         └────────────────┘                 │
+                                                                           ▼
+                                                  ┌────────────────────────────┐
+                                                  │ Route Transaction based on │
+                                                  │ Agent’s Creditor Bank      │
+                                                  └─────────────┬──────────────┘
+                                                                │
+                                                                ▼
+                                                  ┌────────────────────────────┐
+                                                  │ API Calls to Payment Switch│
+                                                  └─────────────┬──────────────┘
+                                                                │
+                                                  All Responses Successful?
+                                                       ┌──────┴──────┐
+                                                     Yes             No
+                                                      │               │
+                                                      ▼               ▼
+                                  ┌────────────────────────┐   ┌──────────────────────────┐
+                                  │ Mark as “Paid”         │   │ Keep status as “Processing”│
+                                  │ Update system records  │   │ Notify agent of issue      │
+                                  └────────────────────────┘   └──────────────────────────┘
