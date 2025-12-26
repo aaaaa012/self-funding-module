@@ -17,15 +17,15 @@ The **Self-Funding Module** is a critical financial utility designed to allow fi
 
 ## 📂 Repository Structure
 
-```
-.
-├── assets/                 # Flowcharts and visual aids
-├── documentation/          # Detailed Business Rules and APIs
-│   ├── Business_Rules.md
-│   └── API_Specs.md
-├── src/                    # Source code (if applicable)
-└── README.md
-```
+The documentation is organized into clear modules for stakeholders:
+
+| Document | Description |
+| :--- | :--- |
+| **[Business Rules](./documentation/01_Business_Rules.md)** | Eligibility, Limits, and Currency Constraints. |
+| **[Process Flows](./documentation/02_Process_Flows.md)** | Sequence Diagrams and State Machine logic. |
+| **[API Specifications](./documentation/03_API_Specs.md)** | REST Endpoints, JSON payloads, and Error Codes. |
+| **[Audit & Compliance](./documentation/04_Audit_and_Compliance.md)** | Logging standards, Fraud checks, and Reconciliation. |
+| **[Assets](./assets/)** | Legacy diagrams and visual aids. |
 
 ---
 
