@@ -1,38 +1,67 @@
-# Self-Funding-Module for Payout Agent
+# Self-Funding Module
 
-## Overview
-The Self-funding-module enables the agents to initate funding transactions directly through their panel.
-It ensures that only validated agents can perform funding, introduces minimum funding rules, avoids duplicate or overlapping transactions.
+[![Business Analyst](https://img.shields.io/badge/Role-Business%20Analyst-blue)](https://github.com/topics/business-analyst)
+[![Type](https://img.shields.io/badge/Type-Internal%20Tool-orange)](https://github.com/topics/fintech)
+[![Status](https://img.shields.io/badge/Status-Live-success)](https://github.com/topics/status)
 
-## Business Objectives
-- Simplify and automate the agent funding process.
-- Reduce dependency on manual finance team intervention.
-- Ensure secure validation before processing financial transactions.
+## 📌 Executive Summary
 
-## Workflow Summary
-1. Agent initiates a self-funding request:
-   The Agent logs into the agent panel and initiates a self-funding request.
-2. Bank Validation :
-   If this is the first self-funding request from that particular agent, their bank details are validated at our end through the designated validation switch.
-3. Receivable Amount Check:
-   Onve validation passes, the system checks if the agent's receivable balance is greater then or equal to NPR.1000(Minimum funding threshold).
-4. Pending Request Check:
-   The system ensures there are no existing pending funding requests for the same agent. Only one active is allowed at a time.
-5. Transaction Creation and Routing:
-   If all the checks pass, a new transaction record is created.
-    The system then determines the route based on the agent's creditor bank and forwards the transaction accordingly.
-6. API Response and Final Settlement:
-   Depending on the routed API response:
-    If the response is success for all the expected API hits, the transaction is then marked as paid and updated in the system.
-    If the response is failure for any of the expected API hits, the transactions remains at processing status,and the agents are notified accordingly about the issue.
+The **Self-Funding Module** is a critical financial utility designed to allow field agents to autonomously fund their transaction wallets. By automating the request-validation-credit loop, this module eliminates manual intervention from the finance team, reducing funding turnaround time from hours to seconds while maintaining strict audit trails.
 
-## Business Analyst Responsibilites
-- Gathered and analyzed requirements for self funding workflow.
-- Defined validation rules, minimum thresholds. and sequencing logic.
-- led UAT testing, covering validation failures, edge cases, and success scenarios.
-- Created test cases, SQL Validation scripts, and functional documnetation.
+**Key Features:**
+*   **Automated Validation**: Checks agent eligibility, request limits, and active constraints.
+*   **Security**: Prevents duplicate requests (only one active request allowed per agent).
+*   **Thresholds**: Enforces a minimum funding amount (e.g., 1000 NPR) to optimize transaction costs.
 
-## Outcome
-- Reduced manual intervention by automating funding validation.
-- Ensured compliance through rule-based validation checks.
-- Improved operational efficiency and agent satisfaction.
+---
+
+## 📂 Repository Structure
+
+```
+.
+├── assets/                 # Flowcharts and visual aids
+├── documentation/          # Detailed Business Rules and APIs
+│   ├── Business_Rules.md
+│   └── API_Specs.md
+├── src/                    # Source code (if applicable)
+└── README.md
+```
+
+---
+
+## 🔄 Process Flow
+
+The following diagram illustrates the self-funding lifecycle, replacing legacy manual workflows:
+
+```mermaid
+sequenceDiagram
+    participant Agent
+    participant System
+    participant CoreBanking
+
+    Agent->>System: 1. Initiate Fund Request (>1000 NPR)
+    System->>System: 2. Validate Active Request?
+    alt Active Request Exists
+        System-->>Agent: Error: Pending Request Exists
+    else No Active Request
+        System->>CoreBanking: 3. Check Balance & Limits
+        CoreBanking-->>System: Approved
+        System->>CoreBanking: 4. Debit Bank / Credit Wallet
+        CoreBanking-->>System: Success
+        System-->>Agent: 5. Wallet Funded Successfully
+    end
+```
+
+---
+
+## 💡 Business Rules
+
+1.  **Minimum Amount**: Requests must be >= **1000 NPR**.
+2.  **Concurrency**: An agent can have only **one** pending request at a time.
+3.  **Audit**: All requests (Success/Fail) are logged with a timestamp and IP address.
+
+---
+
+## 🚀 Getting Started
+
+Review the full [Business Rules](./documentation/Business_Rules.md) for detailed logic.
