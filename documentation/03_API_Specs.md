@@ -12,7 +12,7 @@ Validates the agent's eligibility and limits before starting the transaction.
   "amount": 50000.00,
   "currency": "NPR",
   "sourceBankId": "BANK_NIBL",
-  "deviceFingerprint": "xy78-223a-cc90"
+  "bankAccNumber": "201231232132"
 }
 ```
 
