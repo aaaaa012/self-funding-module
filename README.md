@@ -22,7 +22,7 @@ Before this system, our 500+ field agents faced significant operational friction
 To build a **24/7 autonomous funding gateway** that enables agents to pull funds from their linked bank accounts into their operational wallets instantly, ensuring:
 *   **Zero manual intervention** for standard transactions.
 *   **Real-time validaton** of limits, eligibility, and bank balances.
-*   **Full auditability** for every cent moved.
+*   **Full auditability** for every transaction.
 
 
 
