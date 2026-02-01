@@ -1,8 +1,6 @@
 # Self-Funding Module 
 
-![Role](https://img.shields.io/badge/Role-Technical_Business_Analyst-blue?style=flat-square)
-![Domain](https://img.shields.io/badge/Domain-Fintech_Payments-success?style=flat-square)
-![Status](https://img.shields.io/badge/Status-Production_Live-brightgreen?style=flat-square)
+
 
 ##  Executive Summary
 
